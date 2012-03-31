@@ -1,0 +1,4 @@
+Revision history for {{ $dist->name }}: {{ $dist->version }}
+
+{{ $NEXT }}
+    Initial release of a Tiny version of MetaCPAN::API

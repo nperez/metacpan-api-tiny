@@ -1,0 +1,4 @@
+.build/
+*.swp
+*.tar.gz
+MetaCPAN-API-Tiny-*
