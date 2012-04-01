@@ -1,4 +1,6 @@
 Revision history for {{ $dist->name }}: {{ $dist->version }}
 
 {{ $NEXT }}
+
+1.120920  2012-04-01 11:55:23 Europe/Amsterdam
     Initial release of a Tiny version of MetaCPAN::API
