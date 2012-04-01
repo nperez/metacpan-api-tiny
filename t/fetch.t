@@ -4,7 +4,6 @@ use strict;
 use warnings;
 
 use Test::More tests => 7;
-use Test::TinyMocker;
 use t::lib::Functions;
 
 my $mcpan = mcpan();

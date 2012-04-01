@@ -6,7 +6,6 @@ use warnings;
 use Carp;
 use JSON::PP 'encode_json', 'decode_json';
 use HTTP::Tiny;
-use URI::Escape 'uri_escape';
 
 =class_method new
 
@@ -47,9 +46,18 @@ sub _build_extra_params {
         or croak 'Incorrect number of params, must be key/value';
 
     my %extra = @_;
-    my $extra = join '&', map { "$_=" . uri_escape($extra{$_}) } keys %extra;
+    my $ua = $self->{ua};
 
-    return $extra;
+    foreach my $key (keys %extra)
+    {
+        # The implementation in HTTP::Tiny uses + instead of %20, fix that
+        $extra{$key} = $ua->_uri_escape($extra{$key});
+        $extra{$key} =~ s/\+/%20/g;
+    }
+
+    my $params = join '&', map { "$_=" . $extra{$_} } keys %extra;
+
+    return $params;
 }
 
 =method_public source
@@ -84,7 +92,7 @@ sub source {
     }
 
     $url = $self->{base_url} . "/$url";
-
+    
     my $result = $self->{ua}->get($url);
     $result->{'success'}
         or croak "Failed to fetch '$url': " . $result->{'reason'};
@@ -195,7 +203,7 @@ sub pod {
     }
 
     $url = $self->{base_url}. "/$url";
-
+    
     my $result = $self->{ua}->get( $url, \%extra );
     $result->{'success'}
         or croak "Failed to fetch '$url': " . $result->{'reason'};
@@ -305,7 +313,7 @@ sub fetch {
     my $extra   = $self->_build_extra_params(@_);
     my $base    = $self->{base_url};
     my $req_url = $extra ? "$base/$url?$extra" : "$base/$url";
-
+    
     my $result  = $self->{ua}->get($req_url);
     return $self->_decode_result( $result, $req_url );
 }
