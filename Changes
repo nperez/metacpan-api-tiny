@@ -2,5 +2,8 @@ Revision history for {{ $dist->name }}: {{ $dist->version }}
 
 {{ $NEXT }}
 
+1.121020  2012-04-11 19:55:15 Europe/Amsterdam
+    Fix the dependency on HTTP::Tiny to be at least 0.017
+
 1.120920  2012-04-01 11:55:23 Europe/Amsterdam
     Initial release of a Tiny version of MetaCPAN::API
