@@ -55,7 +55,7 @@ sub _build_extra_params {
         $extra{$key} =~ s/\+/%20/g;
     }
 
-    my $params = join '&', map { "$_=" . $extra{$_} } keys %extra;
+    my $params = join '&', map { "$_=" . $extra{$_} } sort keys %extra;
 
     return $params;
 }
