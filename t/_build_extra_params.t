@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 5;
+use Test::More tests => 6;
 use t::lib::Functions;
 
 my $mcpan = mcpan();
@@ -39,5 +39,12 @@ is(
     $mcpan->_build_extra_params( param1 => 'one', param2 => 'two space' ),
     'param1=one&param2=two%20space',
     'Escaping HTML in params',
+);
+
+# multiple params with the same key
+is(
+    $mcpan->_build_extra_params( param1 => ['one', 'two space'] ),
+    'param1=one&param1=two%20space',
+    'Multiple params with the same key',
 );
 
