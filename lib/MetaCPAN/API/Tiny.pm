@@ -48,16 +48,24 @@ sub _build_extra_params {
     my %extra = @_;
     my $ua = $self->{ua};
 
-    foreach my $key (keys %extra)
+    my @params;
+    foreach my $key (sort keys %extra)
     {
         # The implementation in HTTP::Tiny uses + instead of %20, fix that
-        $extra{$key} = $ua->_uri_escape($extra{$key});
-        $extra{$key} =~ s/\+/%20/g;
+        my @values;
+        if (ref $extra{$key} eq ref []) {
+            @values = @{$extra{$key}};
+        } else {
+            @values = ($extra{$key});
+        }
+        foreach my $value (@values) {
+            $value = $ua->_uri_escape($value);
+            $value =~ s/\+/%20/g;
+            push @params, "$key=$value";
+        }
     }
 
-    my $params = join '&', map { "$_=" . $extra{$_} } sort keys %extra;
-
-    return $params;
+    return join '&', @params;
 }
 
 =method_public source
