@@ -1,7 +1,7 @@
 Revision history for {{ $dist->name }}: {{ $dist->version }}
 
 {{ $NEXT }}
-
+	This module is now marked as deprecated.
 1.131730  2013-06-22 10:29:19 Europe/Amsterdam
 
 1.121020  2012-04-11 19:55:15 Europe/Amsterdam
