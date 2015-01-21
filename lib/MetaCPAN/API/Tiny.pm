@@ -1,7 +1,7 @@
 package MetaCPAN::API::Tiny;
 use strict;
 use warnings;
-# ABSTRACT: A Tiny API client for MetaCPAN
+# ABSTRACT: (DEPRECATED) A Tiny API client for MetaCPAN
 
 use Carp;
 use JSON::PP 'encode_json', 'decode_json';
@@ -391,6 +391,8 @@ sub _decode_result {
 
 __END__
 =head1 DESCRIPTION
+
+This module has been deprecated.
 
 This is the Tiny version of L<MetaCPAN::API>. It implements a compatible API
 with a few notable exceptions:
